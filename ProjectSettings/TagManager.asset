@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Object
+  - TextTrigger
+  - TextTrigger (1)
+  - Pallet
+  - Tv
+  - Trigger
+  - Batery
+  - Draw_1
+  - Trigger_1
+  - Wall_1
+  - Wall_2
+  - Wall_3
+  - Wall_4
+  - TextTrigger  (2)
+  - TextTrigger (3)
+  - TextTrigger (4)
+  - TextTrigger (5)
+  - TextTrigger(6)
+  - Battery
+  - PickeableItem
+  - Walkie
+  - Win
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Post Processing
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
