@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerWin : MonoBehaviour
+/*public class PlayerWin : MonoBehaviour
 {
     [SerializeField] float TimeResetScene;
 
@@ -57,4 +57,4 @@ public class PlayerWin : MonoBehaviour
         SceneManager.LoadScene("Level_1");
     
     }
-}
+}*/
