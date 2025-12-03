@@ -14,10 +14,14 @@ public class ElevatorController : MonoBehaviour
     [SerializeField] private Transform leftDoor1;
     [SerializeField] private Transform leftDoor2;
 
-    [Header("Elevator")]
+    [Header("Elevator Up")]
     [SerializeField] private Transform elevator;
     [SerializeField] private float liftHeight = 5f;
     [SerializeField] private float liftTime = 3f;
+
+    [Header("Elevator Down (Win)")]
+    public float downLiftHeight = 3f;
+    public float downLiftTime = 2f;
 
     [Header("Door movement")]
     [SerializeField] private float doorMoveDistance = 1f;
@@ -27,10 +31,13 @@ public class ElevatorController : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip doorOpenSound;
 
+    [Header("Elevator State")]
+    public bool forceDescent = false;
+
     private bool isMoving = false;
     private bool doorsAreOpen = false;
     private bool waitingForExitTrigger = false;
-    private bool doorOpenSoundPlayed = false; 
+    private bool doorOpenSoundPlayed = false;
 
     private Vector3 rightDoor1ClosedPos;
     private Vector3 rightDoor2ClosedPos;
@@ -45,7 +52,6 @@ public class ElevatorController : MonoBehaviour
         leftDoor2ClosedPos = leftDoor2.localPosition;
     }
 
-
     public void PlayerEnteredElevatorArea()
     {
         if (!isMoving && !activeObject.activeSelf)
@@ -55,40 +61,48 @@ public class ElevatorController : MonoBehaviour
     public void PlayerEnteredElevator()
     {
         if (!isMoving && doorsAreOpen)
-            StartCoroutine(StartElevatorSequence());
+            StartCoroutine(StartElevatorSequence(liftHeight, liftTime));
     }
 
     public void PlayerExitedElevator()
     {
         if (waitingForExitTrigger)
-        {
             StartCoroutine(CloseDoorsAfterExit());
+    }
+
+    public void StartElevatorDescent()
+    {
+        if (!isMoving)
+        {
+            forceDescent = true;
+            StartCoroutine(StartElevatorSequence(downLiftHeight, downLiftTime));
         }
     }
 
-
-    private IEnumerator StartElevatorSequence()
+    private IEnumerator StartElevatorSequence(float customLiftHeight, float customLiftTime)
     {
         isMoving = true;
 
-
+        // Cerrar puertas
         yield return StartCoroutine(MoveDoors(false));
 
-
         Vector3 startPos = elevator.position;
-        Vector3 endPos = startPos + Vector3.up * liftHeight;
+        Vector3 endPos = startPos + (forceDescent ? Vector3.down * customLiftHeight : Vector3.up * customLiftHeight);
+
         float elapsed = 0f;
-        while (elapsed < liftTime)
+        while (elapsed < customLiftTime)
         {
-            elevator.position = Vector3.Lerp(startPos, endPos, elapsed / liftTime);
+            elevator.position = Vector3.Lerp(startPos, endPos, elapsed / customLiftTime);
             elapsed += Time.deltaTime;
             yield return null;
         }
+
         elevator.position = endPos;
 
-
+        // Abrir puertas al llegar
         yield return StartCoroutine(MoveDoors(true));
-        waitingForExitTrigger = true; 
+
+        waitingForExitTrigger = true;
         isMoving = false;
     }
 
@@ -103,7 +117,7 @@ public class ElevatorController : MonoBehaviour
     {
         if (doorsAreOpen) yield break;
 
-        PlayDoorSound(); 
+        PlayDoorSound();
         yield return StartCoroutine(MoveDoors(true));
         doorsAreOpen = true;
     }
@@ -141,10 +155,9 @@ public class ElevatorController : MonoBehaviour
         doorsAreOpen = open;
     }
 
-
     private void PlayDoorSound()
     {
-        if (!doorOpenSoundPlayed) 
+        if (!doorOpenSoundPlayed)
         {
             if (audioSource != null && doorOpenSound != null)
             {
