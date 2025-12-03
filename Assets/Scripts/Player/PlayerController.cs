@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // lo unico que se agrego fue en la linea 57 el fixed delta time en la velocidad del player.
-
     public float HorizontalMove;
     public float VerticalMove;
 
     Rigidbody rb;
 
-    [SerializeField] float PlayerSpeed = 350f;
+    [SerializeField] float PlayerSpeed = 10f;  
     [SerializeField] GameObject Player;
     [SerializeField] AudioSource Switch;
     [SerializeField] Camera MainCamera;
@@ -23,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     public float mouseSensitivity = 100f;
 
-    [HideInInspector] public float speedMultiplier = 1f; 
+    [HideInInspector] public float speedMultiplier = 1f;
 
     void Start()
     {
@@ -47,12 +45,21 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = (camRight * HorizontalMove + camForward * VerticalMove).normalized;
 
+        float finalSpeed = PlayerSpeed * speedMultiplier;
 
-        rb.velocity = move * (PlayerSpeed * speedMultiplier * Time.fixedDeltaTime);
+        rb.velocity = new Vector3(
+            move.x * finalSpeed,
+            rb.velocity.y,     
+            move.z * finalSpeed
+        );
 
-        Player.transform.rotation = Quaternion.Euler(Player.transform.eulerAngles.x, MainCamera.transform.eulerAngles.y, Player.transform.eulerAngles.z);
+        Player.transform.rotation = Quaternion.Euler(
+            Player.transform.eulerAngles.x,
+            MainCamera.transform.eulerAngles.y,
+            Player.transform.eulerAngles.z
+        );
 
-        if (HorizontalMove != 0 && VerticalMove != 0)
+        if (HorizontalMove != 0 || VerticalMove != 0)
         {
             Switch.Stop();
         }
@@ -78,3 +85,4 @@ public class PlayerController : MonoBehaviour
         MainCamera.transform.localRotation = Quaternion.Euler(XRotation, 0f, 0f);
     }
 }
+

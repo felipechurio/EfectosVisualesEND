@@ -10,8 +10,7 @@ public class CollisionFixer : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Pallet"))
         {
-            // Impulso hacia arriba (ajustá el valor según quieras)
-            _rb.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+            _rb.AddForce(Vector3.up * 1f, ForceMode.Impulse);
         }
     }
 
