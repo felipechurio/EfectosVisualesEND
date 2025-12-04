@@ -6,6 +6,7 @@ using UnityEngine.VFX;
 
 public class TriggerEffectsSequence : MonoBehaviour
 {
+    [SerializeField] AudioSource audioSource;
     [Header("Trigger Settings")]
     public string playerTag = "Player"; 
 
@@ -85,5 +86,15 @@ public class TriggerEffectsSequence : MonoBehaviour
             secondVFX.gameObject.SetActive(true);
             secondVFX.Play();
         }
+
+        StartCoroutine(ElevatorDing());
+    }
+
+    public IEnumerator ElevatorDing()
+    { 
+       yield return new WaitForSeconds(5f);
+        audioSource.Play();
+
+    
     }
 }
