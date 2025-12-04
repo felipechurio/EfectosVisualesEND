@@ -7,7 +7,7 @@ using UnityEngine.VFX;
 public class FlareEffect : MonoBehaviour
 {
     [Header("References")]
-    public GameObject flareVFX;         // Visual Graph / Flare
+    public GameObject flareVFX;        
     public AudioSource activateSound;
     public GameObject activateCanvas;
     public GameObject activateText;
@@ -17,7 +17,7 @@ public class FlareEffect : MonoBehaviour
     public Timer timer;
 
     [Header("Diamonds")]
-    public List<GameObject> diamonds;   // List of 8 diamonds
+    public List<GameObject> diamonds;   
     public int requiredInactiveDiamonds = 8;
 
     private bool playerInside = false;
@@ -25,7 +25,6 @@ public class FlareEffect : MonoBehaviour
 
     void Start()
     {
-        // Start all objects disabled
         if (flareVFX != null) flareVFX.SetActive(false);
         if (activateCanvas != null) activateCanvas.SetActive(false);
         if (activateText != null) activateText.SetActive(false);
@@ -39,11 +38,9 @@ public class FlareEffect : MonoBehaviour
 
         bool diamondsInactive = AreDiamondsInactive();
 
-        // Activar o desactivar activateCanvas y activateText dinámicamente
         if (activateCanvas != null) activateCanvas.SetActive(diamondsInactive);
         if (activateText != null) activateText.SetActive(diamondsInactive);
 
-        // Secuencia completa solo si Q presionado y no ha sido activado antes
         if (!hasTriggered && diamondsInactive && Input.GetKeyDown(KeyCode.Q))
         {
             hasTriggered = true;
@@ -64,7 +61,6 @@ public class FlareEffect : MonoBehaviour
 
     private IEnumerator ActivateSequence()
     {
-        // Activar y reproducir el VFX
         if (flareVFX != null)
         {
             flareVFX.SetActive(true);
@@ -75,14 +71,11 @@ public class FlareEffect : MonoBehaviour
             }
         }
 
-        // Activar sonido de "activate"
         if (activateSound != null)
             activateSound.Play();
 
-        // Esperar 7 segundos
         yield return new WaitForSeconds(7f);
 
-        // Activar win canvas, win text y win audio
         if (winCanvas != null) winCanvas.SetActive(true);
         if (winText != null) winText.SetActive(true);
         if (winAudio != null) winAudio.Play();
@@ -110,7 +103,6 @@ public class FlareEffect : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInside = false;
-            // Opcional: desactivar activateCanvas/text al salir
             if (activateCanvas != null) activateCanvas.SetActive(false);
             if (activateText != null) activateText.SetActive(false);
             Debug.Log("Player exited trigger.");
