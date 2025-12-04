@@ -31,6 +31,8 @@ public class AcidCollision : MonoBehaviour
 
     float t = 0;
 
+    float t2 = 0;
+
     float AcidIntensity;
 
 
@@ -61,6 +63,7 @@ public class AcidCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Loses = true;
             acidFeature.SetActive(true);
             AcidEffect.SetFloat("_AcidIntensity", 0.22f);
 
@@ -76,6 +79,8 @@ public class AcidCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Loses = false;
+            t2 = 0;
             acidFeature.SetActive(false);
 
             AcidEffect.SetFloat("_AcidIntensity", 0);
@@ -85,7 +90,7 @@ public class AcidCollision : MonoBehaviour
             Blood3.SetActive(false);
             Blood3.SetActive(false);
 
-            StopCoroutine(LerpAcid());
+            StopAllCoroutines();
             InCollison = false;         
         }
     }
@@ -102,11 +107,13 @@ public class AcidCollision : MonoBehaviour
     public IEnumerator LoseGame()
     {     if (Loses)
           {
-            for (float d = 0; d < 8f; d += Time.deltaTime)
+            for (t2 = 0; t2 < 6f; t2 += Time.deltaTime)
             {
                 yield return null;
 
-                if (d > 7.9f) SceneManager.LoadScene("Level_1");
+                print(t2);
+
+                if (t2 > 5f) SceneManager.LoadScene("Level_1");
             }
 
           }
@@ -116,6 +123,6 @@ public class AcidCollision : MonoBehaviour
    
     private void Update()
     {
-        if (Loses == false) StopCoroutine(LoseGame());
+        if (Loses == false);
     }
 }
