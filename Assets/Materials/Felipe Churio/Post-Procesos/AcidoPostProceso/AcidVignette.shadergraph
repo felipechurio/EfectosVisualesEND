@@ -2376,7 +2376,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "37bf4c63f39f42bb8ce76667fcfb935f",
     "m_Id": 0,
-    "m_DisplayName": "t",
+    "m_DisplayName": "_AcidIntensity",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -2667,10 +2667,10 @@
     "m_Guid": {
         "m_GuidSerialized": "72337aee-b7cc-446d-b5bb-175cdb6661b1"
     },
-    "m_Name": "t",
+    "m_Name": "_AcidIntensity",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "t",
-    "m_DefaultReferenceName": "_t",
+    "m_RefNameGeneratedByDisplayName": "_AcidIntensity",
+    "m_DefaultReferenceName": "_AcidIntensity",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,

@@ -26,16 +26,17 @@ public class AcidBreak : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _Acid.SetActive(false);
+        StartCoroutine(DisableAcid());
         _BreakedGlass.SetActive(false);
         _BreakedGlass2.SetActive(false);
         _BreakedGlass3.SetActive(false);
         _BreakedGlass4.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator DisableAcid()
     {
-        
+        yield return new WaitForSeconds(2);
+        _Acid.SetActive(false);
+
     }
 }

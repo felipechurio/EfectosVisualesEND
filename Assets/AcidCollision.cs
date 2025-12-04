@@ -8,8 +8,15 @@ using UnityEngine.SceneManagement;
 
 public class AcidCollision : MonoBehaviour
 {
+    [SerializeField] ScriptableRendererFeature acidFeature;
+    ScriptableRendererFeature acidFeatureOriginal;
+
 
     [SerializeField] Material AcidEffect;
+
+    //[SerializeField]  Material BackupMaterial;
+
+
 
     [SerializeField] GameObject Blood1;
 
@@ -32,9 +39,15 @@ public class AcidCollision : MonoBehaviour
 
     private void Start()
     {
-        AcidIntensity = AcidEffect.GetFloat("_AcidPower");
+        
 
-        AcidEffect.SetFloat("_AcidIntensity", 0);
+        // acidFeatureOriginal = acidFeature;  // guardo referencia original
+        acidFeature.SetActive(false);
+
+
+        //AcidIntensity = AcidEffect.GetFloat("_AcidPower");
+
+        //AcidEffect.SetFloat("_AcidIntensity", 0);
     }
 
 
@@ -53,7 +66,6 @@ public class AcidCollision : MonoBehaviour
             Loses = true;
 
 
-
             //AcidEffect.SetFloat("_AcidIntensity", 0.5f);
 
             //InCollison = true;
@@ -69,8 +81,10 @@ public class AcidCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            
-            //AcidEffect.SetFloat("_AcidIntensity", 0.5f);
+            //AcidEffect = BackupMaterial;
+
+            acidFeature.SetActive(true);
+            AcidEffect.SetFloat("_AcidIntensity", 0.22f);
 
             InCollison = true;
 
@@ -84,6 +98,8 @@ public class AcidCollision : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            acidFeature.SetActive(false);
+
             AcidEffect.SetFloat("_AcidIntensity", 0);
 
             Blood1.SetActive(false);
@@ -109,23 +125,24 @@ public class AcidCollision : MonoBehaviour
     }
 
     public IEnumerator LoseGame()
-    {
-        
+    {     
             for (float d = 0; d < 3f; d += Time.deltaTime)
             {
                 yield return null;
-                AcidEffect.SetFloat("_AcidIntensity", 0);
+               // AcidEffect.SetFloat("_AcidIntensity", 0);
 
                 if (d > 2.9f) SceneManager.LoadScene("Level_1");
 
-            }
-            
-        
-        
+            } 
     }
 
+   
     private void Update()
     {
         if (Loses == false) StopCoroutine(LoseGame());
+
+
+        
+
     }
 }
