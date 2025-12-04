@@ -42016,9 +42016,7 @@ PrefabInstance:
     - target: {fileID: 5142416481503758103, guid: 7c79f69f1a925644fb6a7f12c8901cad,
         type: 3}
       propertyPath: m_text
-      value: 'Level Complete
-
-        [You win] '
+      value: "You have survived\n[Venomous Sewers] \n"
       objectReference: {fileID: 0}
     - target: {fileID: 5556064185929136244, guid: 7c79f69f1a925644fb6a7f12c8901cad,
         type: 3}
@@ -80637,6 +80635,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WinCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142416481503758103, guid: 7c79f69f1a925644fb6a7f12c8901cad,
+        type: 3}
+      propertyPath: m_text
+      value: "Level Complete\n[Silent Pursuit] \n"
       objectReference: {fileID: 0}
     - target: {fileID: 5556064185929136244, guid: 7c79f69f1a925644fb6a7f12c8901cad,
         type: 3}
