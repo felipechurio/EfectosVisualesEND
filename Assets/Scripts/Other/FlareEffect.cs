@@ -93,7 +93,7 @@ public class FlareEffect : MonoBehaviour
     {
         timer.enabled = false;
         yield return new WaitForSeconds(7f);
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene("WinCanvas");
     
     }
     private void OnTriggerEnter(Collider other)
