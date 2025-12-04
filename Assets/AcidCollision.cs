@@ -111,12 +111,12 @@ public class AcidCollision : MonoBehaviour
     public IEnumerator LoseGame()
     {
         
-            for (float d = 0; d < 1.2f; d += Time.deltaTime)
+            for (float d = 0; d < 3f; d += Time.deltaTime)
             {
                 yield return null;
                 AcidEffect.SetFloat("_AcidIntensity", 0);
 
-                if (d > 1f) SceneManager.LoadScene("Level_1");
+                if (d > 2.9f) SceneManager.LoadScene("Level_1");
 
             }
             

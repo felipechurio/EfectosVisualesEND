@@ -38,7 +38,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AcidPower: 10
+    - _AcidPower: 9.03
     - _Alpha: 5.26
+    - _t: 0
     m_Colors: []
   m_BuildTextureStacks: []
