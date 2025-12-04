@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: StaticCamera
-  m_Shader: {fileID: -6465566751694194690, guid: 994c3919d8b555e4ca6a933df52b3b98,
+  m_Name: AcidVignette
+  m_Shader: {fileID: -6465566751694194690, guid: f2e19b9af81e0174db33d1574b5c37e2,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -38,9 +38,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AlphaIntensity: 0
-    - _Fullscreen_DepthWrite: 0
-    - _IntensityTime: 8
-    m_Colors:
-    - _Gray: {r: 0.37735847, g: 0.37735847, b: 0.37735847, a: 0}
+    - _AcidIntensity: 0
+    - _AcidPower: 9.03
+    - _Alpha: 5.26
+    - _t: 0
+    m_Colors: []
   m_BuildTextureStacks: []
