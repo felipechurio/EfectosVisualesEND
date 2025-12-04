@@ -18,7 +18,7 @@ public class WalkieTalkieFix : MonoBehaviour
         { 
           TextE.SetActive(true);
 
-            print("dd");
+           
 
             isd = true;
            

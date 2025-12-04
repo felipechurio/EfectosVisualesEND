@@ -15,7 +15,6 @@ public class AcidCollision : MonoBehaviour
     [SerializeField] Material AcidEffect;
 
 
-
     [SerializeField] GameObject Blood1;
 
     [SerializeField] GameObject Blood2;
@@ -103,11 +102,11 @@ public class AcidCollision : MonoBehaviour
     public IEnumerator LoseGame()
     {     if (Loses)
           {
-            for (float d = 0; d < 3f; d += Time.deltaTime)
+            for (float d = 0; d < 8f; d += Time.deltaTime)
             {
                 yield return null;
 
-                if (d > 2.9f) SceneManager.LoadScene("Level_1");
+                if (d > 7.9f) SceneManager.LoadScene("Level_1");
             }
 
           }
