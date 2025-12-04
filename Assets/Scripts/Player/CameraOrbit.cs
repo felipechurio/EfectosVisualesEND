@@ -1,86 +1,93 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CameraOrbit : MonoBehaviour
 {
-    [SerializeField] Transform Follow;
-    [SerializeField] float MaxDistance;
+    [Header("References")]
+    [SerializeField] private Transform Follow;
+    [SerializeField] private LayerMask collisionMask; // capas para colisiones (excluir Player)
 
-    private Vector2 Angle = new Vector2 (90 * Mathf.Deg2Rad, 0);
+    [Header("Camera Settings")]
+    [SerializeField] private float MaxDistance = 5f;
+    [SerializeField] private Vector2 Sensitivity = new Vector2(3f, 3f);
 
-    [SerializeField] Vector2 Sensitivy;
+    [Header("Smoothing")]
+    [SerializeField] private float smoothSpeed = 10f;
 
-    private Camera Camera;
+    private Vector2 Angle = new Vector2(90 * Mathf.Deg2Rad, 0);
+    private Camera cam;
     private Vector2 NearPlaneSize;
 
-    void Start()
+    private void Start()
     {
-        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-
-        Camera = GetComponent<Camera>();  
-        
+        Cursor.lockState = CursorLockMode.Locked;
+        cam = GetComponent<Camera>();
         CalculateNearPlaneSize();
     }
 
-    private void CalculateNearPlaneSize() 
+    private void CalculateNearPlaneSize()
     {
-        float Height = Mathf.Tan(Camera.fieldOfView * Mathf.Deg2Rad / 2) * Camera.nearClipPlane;
-        float Width = Height * Camera.aspect;
-
-        NearPlaneSize = new Vector2(Width, Height);
+        float height = Mathf.Tan(cam.fieldOfView * Mathf.Deg2Rad / 2f) * cam.nearClipPlane;
+        float width = height * cam.aspect;
+        NearPlaneSize = new Vector2(width, height);
     }
 
-    private Vector3[] GetCameraCollisionPoints(Vector3 Direction)
+    private Vector3[] GetCameraCollisionPoints(Vector3 direction)
     {
-        Vector3 Position = Follow.position;
-        Vector3 Center = Position + Direction * (Camera.nearClipPlane + 10f);
+        Vector3 pos = Follow.position;
+        Vector3 center = pos + direction * (cam.nearClipPlane + 0.1f);
 
-        Vector3 Right = transform.right * NearPlaneSize.x;
-        Vector3 Up = transform.up * NearPlaneSize.y;
+        Vector3 right = transform.right * NearPlaneSize.x;
+        Vector3 up = transform.up * NearPlaneSize.y;
 
-        return new Vector3[] {Center - Right + Up,Center + Right + Up,Center - Right - Up,Center + Right -Up};
+        return new Vector3[]
+        {
+            center - right + up,
+            center + right + up,
+            center - right - up,
+            center + right - up
+        };
     }
 
     private void Update()
     {
-        float Hor = Input.GetAxis("Mouse X"); 
+        float hor = Input.GetAxis("Mouse X");
+        float ver = Input.GetAxis("Mouse Y");
 
-        if (Hor != 0)
-        {
-            Angle.x += Hor * Mathf.Deg2Rad * Sensitivy.x;
-        }
-
-        float Ver = Input.GetAxis("Mouse Y");
-
-        if (Ver != 0)
-        {
-            Angle.y += Ver * Mathf.Deg2Rad * Sensitivy.y;
-            Angle.y = Mathf.Clamp(Angle.y, -80 * Mathf.Deg2Rad, 80); // Limit 
-
-        } 
+        Angle.x += hor * Mathf.Deg2Rad * Sensitivity.x;
+        Angle.y += ver * Mathf.Deg2Rad * Sensitivity.y;
+        Angle.y = Mathf.Clamp(Angle.y, -80 * Mathf.Deg2Rad, 80 * Mathf.Deg2Rad);
     }
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        Vector3 Direction = new Vector3(Mathf.Cos(Angle.x) * Mathf.Cos(Angle.y), -Mathf.Sin(Angle.y), -Mathf.Sin(Angle.x) * Mathf.Cos(Angle.y));
+        // Calcular dirección según ángulos
+        Vector3 direction = new Vector3(
+            Mathf.Cos(Angle.x) * Mathf.Cos(Angle.y),
+            -Mathf.Sin(Angle.y),
+            -Mathf.Sin(Angle.x) * Mathf.Cos(Angle.y)
+        );
 
-        RaycastHit Hit;
+        // Detectar colisiones
+        float distance = MaxDistance;
+        Vector3[] points = GetCameraCollisionPoints(direction);
+        RaycastHit hit;
 
-        float Distance = MaxDistance;
-
-        Vector3[] Points = GetCameraCollisionPoints(Direction);
-
-        foreach (Vector3 Point in Points)
+        foreach (Vector3 point in points)
         {
-         if (Physics.Raycast(Follow.position, Direction, out Hit, MaxDistance))
-         {
-            Distance = Mathf.Min((Hit.point - Follow.position).magnitude, Distance);
-         }
+            if (Physics.Raycast(point, direction, out hit, MaxDistance, collisionMask))
+            {
+                distance = Mathf.Min(distance, (hit.point - Follow.position).magnitude);
+            }
         }
-       
-        transform.position = Follow.position + Direction * Distance;
-        transform.rotation = Quaternion.LookRotation(Follow.position - transform.position);
+
+        // Suavizado de posición
+        Vector3 targetPos = Follow.position + direction * distance;
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * smoothSpeed);
+
+        // Suavizado de rotación
+        Quaternion targetRot = Quaternion.LookRotation(Follow.position - targetPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * smoothSpeed);
     }
 }

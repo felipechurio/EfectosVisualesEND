@@ -10,9 +10,9 @@ public class AcidBreak : MonoBehaviour
     [SerializeField] GameObject _BreakedGlass2;
     [SerializeField] GameObject _BreakedGlass3;
     [SerializeField] GameObject _BreakedGlass4;
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Floor"))
+        if (other.gameObject.CompareTag("Floor"))
         { 
           _AudioSource.Play();
             _Acid.SetActive(true);
@@ -20,6 +20,7 @@ public class AcidBreak : MonoBehaviour
             _BreakedGlass2.SetActive(true);
             _BreakedGlass3.SetActive(true);
             _BreakedGlass4.SetActive(true);
+            StartCoroutine(Disablethis());
         }
     }
 
@@ -38,5 +39,12 @@ public class AcidBreak : MonoBehaviour
         yield return new WaitForSeconds(2);
         _Acid.SetActive(false);
 
+    }
+
+    public IEnumerator Disablethis()
+    { 
+      yield return new WaitForSeconds (2);
+            this.enabled = false;
+        Destroy(this.gameObject);
     }
 }
