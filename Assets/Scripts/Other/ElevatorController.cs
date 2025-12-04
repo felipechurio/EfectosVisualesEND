@@ -72,6 +72,7 @@ public class ElevatorController : MonoBehaviour
 
     public void StartElevatorDescent()
     {
+        
         if (!isMoving)
         {
             forceDescent = true;
@@ -88,6 +89,7 @@ public class ElevatorController : MonoBehaviour
 
         Vector3 startPos = elevator.position;
         Vector3 endPos = startPos + (forceDescent ? Vector3.down * customLiftHeight : Vector3.up * customLiftHeight);
+        forceDescent = true;
 
         float elapsed = 0f;
         while (elapsed < customLiftTime)

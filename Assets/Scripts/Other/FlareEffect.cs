@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.VFX;
 
 public class FlareEffect : MonoBehaviour
@@ -13,6 +14,7 @@ public class FlareEffect : MonoBehaviour
     public GameObject winCanvas;
     public GameObject winText;
     public AudioSource winAudio;
+    public Timer timer;
 
     [Header("Diamonds")]
     public List<GameObject> diamonds;   // List of 8 diamonds
@@ -84,8 +86,16 @@ public class FlareEffect : MonoBehaviour
         if (winCanvas != null) winCanvas.SetActive(true);
         if (winText != null) winText.SetActive(true);
         if (winAudio != null) winAudio.Play();
+        StartCoroutine(WinScene());
     }
 
+    private IEnumerator WinScene()
+    {
+        timer.enabled = false;
+        yield return new WaitForSeconds(7f);
+        SceneManager.LoadScene("Level_1");
+    
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

@@ -141,13 +141,14 @@ public class Timer : MonoBehaviour
     public void ActivarWin()
     {
         // Ejecutar secuencia de Win UI y sonido
-        StartCoroutine(WinSequence());
+       // StartCoroutine(WinSequence());
+
 
         // Hacer que el ascensor baje automáticamente
-        if (elevatorController != null)
-        {
+        //if (elevatorController != null)
+       // {
             elevatorController.StartElevatorDescent();
-        }
+       // }
     }
 
     private IEnumerator WinSequence()
