@@ -9023,6 +9023,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6e16ccaa8bc2c4ebec9a92acbfdaad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CameraFeature: {fileID: -8685812008981170173, guid: c40be3174f62c4acf8c1216858c64956,
+    type: 2}
   Player: {fileID: 1806466608}
   TvEstatic: {fileID: 2100000, guid: 82f139c6bf445f64cbd21ef8b1c4f495, type: 2}
   TurnOffTv: {fileID: 1864885410}
@@ -18034,6 +18036,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 344373636}
   m_Mesh: {fileID: 2883654815081506176, guid: 29e31dc4ac674184f9d454918367dc81, type: 3}
+--- !u!1 &345612560 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 30ad0a04b60fba543b79f01542efc702,
+    type: 3}
+  m_PrefabInstance: {fileID: 64222548}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &349495576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70157,7 +70165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textToFade: {fileID: 143209510}
-  associatedObject: {fileID: 0}
+  associatedObject: {fileID: 345612560}
 --- !u!65 &1449659117
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d613f08f173d4dd895bb07b3230baa9, type: 3}
   m_Name: FullScreenPassRendererFeature
   m_EditorClassIdentifier: 
-  m_Active: 1
+  m_Active: 0
   passMaterial: {fileID: 2100000, guid: 17cb6d9ee26184d40b92b4926e627e42, type: 2}
   injectionPoint: 600
   requirements: 4
@@ -184,6 +184,6 @@ MonoBehaviour:
   m_Active: 1
   passMaterial: {fileID: -876546973899608171, guid: 9e4ea6d65c28b234492c16e1ac3088ec,
     type: 3}
-  injectionPoint: 600
+  injectionPoint: 450
   requirements: 4
   passIndex: 0

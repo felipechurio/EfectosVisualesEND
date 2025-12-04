@@ -39,6 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaIntensity: 0
+    - _Fullscreen_DepthWrite: 0
     - _IntensityTime: 8
     m_Colors:
     - _Gray: {r: 0.37735847, g: 0.37735847, b: 0.37735847, a: 0}

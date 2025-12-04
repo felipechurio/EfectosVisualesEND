@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerTurnTv : MonoBehaviour
 {
+    [SerializeField] ScriptableRendererFeature CameraFeature;
+    ScriptableRendererFeature CameraFeatureOriginal;
     [SerializeField] GameObject Player;
     [SerializeField] Material TvEstatic;
     [SerializeField] TextMeshProUGUI TurnOffTv;
@@ -25,7 +28,9 @@ public class PlayerTurnTv : MonoBehaviour
     {
         _Renderer = GetComponent<Renderer>();
         _Renderer.material = _Black;
-        postProcessMaterial.SetFloat("_AlphaIntensity", 0);
+        //postProcessMaterial.SetFloat("_AlphaIntensity", 0);
+        CameraFeature.SetActive(false);
+
     }
 
     private void Update()
@@ -41,7 +46,7 @@ public class PlayerTurnTv : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     Info.collider.GetComponent<Renderer>().material = TvEstatic;
-                    postProcessMaterial.SetFloat("_AlphaIntensity", t);
+                    CameraFeature.SetActive(true);
                     _AudioSource.Play();
 
                     if (playerController != null)
@@ -71,15 +76,16 @@ public class PlayerTurnTv : MonoBehaviour
 
     public IEnumerator UnableEffect()
     {
-        while (t > 0)
-        {
-            postProcessMaterial.SetFloat("_AlphaIntensity", t);
-            t -= Time.deltaTime / 40f;
+       yield return new WaitForSeconds(5);
+            CameraFeature.SetActive(false);
             TurnOffTv.gameObject.SetActive(false);
-            yield return null;
-        }
 
         if (playerController != null)
             playerController.speedMultiplier = 1f;
+
+
     }
+
+        
+    
 }
