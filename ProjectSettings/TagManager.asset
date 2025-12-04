@@ -26,6 +26,7 @@ TagManager:
   - PickeableItem
   - Walkie
   - Win
+  - Floor
   layers:
   - Default
   - TransparentFX
