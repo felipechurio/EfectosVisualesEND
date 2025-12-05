@@ -17,9 +17,9 @@ public class Dead : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        PlayerStartPosition = Player.transform.position;
+       // PlayerStartPosition = Player.transform.position;
 
-        VignetteIntensity = _BloodVignette.GetFloat("_IntensityVignette");
+       // VignetteIntensity = _BloodVignette.GetFloat("_IntensityVignette");
     }
 
     // Update is called once per frame
@@ -36,7 +36,7 @@ public class Dead : MonoBehaviour
 
           if (t == 5 || t > 4)
           {
-             Player.transform.position = PlayerStartPosition;
+            // Player.transform.position = PlayerStartPosition;
              
           }
 
