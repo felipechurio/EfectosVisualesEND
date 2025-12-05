@@ -84,7 +84,7 @@ public class Timer : MonoBehaviour
                 timerActive = false;
                 loopSound.Stop();
                 timerCanvas.gameObject.SetActive(false);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name); // reinicia la escena
+                SceneManager.LoadScene("LoseScreen"); // reinicia la escena
             }
         }
 
