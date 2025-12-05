@@ -113,7 +113,7 @@ public class AcidCollision : MonoBehaviour
 
                 print(t2);
 
-                if (t2 > 5f) SceneManager.LoadScene("Level_1");
+                if (t2 > 5f) SceneManager.LoadScene("LoseScreen");
             }
 
           }
