@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class VHSController : MonoBehaviour
 {
+
+    [SerializeField] List<HologramEntorno> Materials = new List<HologramEntorno>(); 
+
     public Material mat;
 
     public float targetNoiseAmount = 67f;
@@ -16,6 +19,9 @@ public class VHSController : MonoBehaviour
 
     void Start()
     {
+       
+
+
         if (mat != null)
         {
             mat.SetFloat("_NoiseAmount", 0f);
@@ -29,6 +35,11 @@ public class VHSController : MonoBehaviour
         if (!isActive && mat != null)
         {
             StartCoroutine(VHSEffectCoroutine());
+
+            foreach (HologramEntorno it in Materials)
+            { 
+              it.enabled = true;
+            }
         }
     }
 
